@@ -1,14 +1,21 @@
 import React, {useState} from 'react';
 import Modal from './Modal';
 
+import useModal from '../hooks/useModal';
+import useEmployee from '../hooks/useEmployee';
+
 const TableEmployee = ({data, onEmployeeUpdate}) => {
   const [editingItem, setEditingItem] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const { isOpen, openModal, closeModal } = useModal();
+  const { removeEmployee } = useEmployee();
 
   const handleEdit = (item) => {
     setEditingItem(item);
-    setIsModalVisible(true);
+  };
+
+  const handleDelete = async (id) => {
+    await removeEmployee(id);
+    onEmployeeUpdate();
   };
 
   return (
@@ -22,7 +29,7 @@ const TableEmployee = ({data, onEmployeeUpdate}) => {
 						<th>Apellido</th>
             <th>Genero</th>
             <th>Area</th>
-            <th>Actions</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +43,8 @@ const TableEmployee = ({data, onEmployeeUpdate}) => {
                 <td>{item.employment_area}</td>
                 <td>
                   <div className="d-flex align-items-center">
-                    <button type="button" className="btn btn-outline-primary" onClick={() => handleEdit(item)}>Edit</button>
-                    <button type="button" className="btn btn-outline-danger mx-2">Delete</button>
+                    <button type="button" className="btn btn-outline-primary" onClick={() => {handleEdit(item); openModal()}}>Editar</button>
+                    <button type="button" className="btn btn-outline-danger mx-2" onClick={() => handleDelete(item.id)}>Eliminar</button>
                   </div>
                 </td>
               </tr>
@@ -52,12 +59,12 @@ const TableEmployee = ({data, onEmployeeUpdate}) => {
     {editingItem && (
       <Modal
         data={editingItem}
-        show={isModalVisible} 
+        show={isOpen} 
         itemId={editingItem}
         onEmployeeUpdate={onEmployeeUpdate}
         onClose={() => {
           setEditingItem(null); 
-          setIsModalVisible(false)
+          closeModal();
         }}
       />
     )}
