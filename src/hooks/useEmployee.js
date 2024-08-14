@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
 import { 
   getEmployees,
-  updateEmployee
+  updateEmployee,
+  createEmployee,
+  deleteEmployee
 } from '../api/employees';
 
 const useEmployee = (employeeId) => {
@@ -39,12 +41,41 @@ const useEmployee = (employeeId) => {
     }
   }, []);
 
+  const addEmployee = useCallback(async (employeeData) => {
+    setLoading(true);
+    try {
+      const response = await createEmployee(employeeData);
+      setData(response.data);
+    } catch (error) {
+      console.error('Ha ocurrido un error al crear este empleado.', error);
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const removeEmployee = useCallback(async (employeeId) => {
+    setLoading(true);
+    try {
+      const response = await deleteEmployee(employeeId);
+      setData(response.data);
+    } catch (error) {
+      console.error('Ha ocurrido un error al eliminar este empleado', error);
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+
   return { 
     data, 
     loading, 
     error,
     fetchEmployees,
-    editEmployee
+    editEmployee,
+    addEmployee,
+    removeEmployee 
   };
 };
 
