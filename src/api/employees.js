@@ -9,3 +9,13 @@ export const getEmployees = async () => {
     throw error;
   }
 };
+
+export const updateEmployee = async (id, updatedData) => {
+  try {
+    const response = await apiClient.put(`?action=updateEmployee&id=${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating employee:', error);
+    throw error;
+  }
+};
