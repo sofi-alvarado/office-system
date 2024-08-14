@@ -11,7 +11,7 @@ const Home = () => {
 
 return (
   <>
-    <TableEmployee data={employeeData}/>
+    <TableEmployee data={employeeData} onEmployeeUpdate={fetchEmployees}/>
   </>
 )
 }
