@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import useEmployee from "../hooks/useEmployee";
 import "../styles/Modal.css";
 
-const Modal = ({ data, show, onClose, onEmployeeUpdate }) => {
-  const { editEmployee } = useEmployee();
+const Modal = ({ 
+	data, 
+	show, 
+	onClose, 
+	onEmployeeUpdate 
+}) => {
+  const { editEmployee, addEmployee } = useEmployee();
 
 	const [editForm, setEditForm] = useState(() => {
 		if(data) {
@@ -27,7 +32,7 @@ const Modal = ({ data, show, onClose, onEmployeeUpdate }) => {
 
 	const handleSubmit = async (e) => {
     e.preventDefault();
-		await editEmployee(data.id, editForm);
+		data ? await editEmployee(data.id, editForm) : await addEmployee(editForm)
     onClose();
 		onEmployeeUpdate();
   };
@@ -48,7 +53,7 @@ const Modal = ({ data, show, onClose, onEmployeeUpdate }) => {
 			<div className="modal-dialog" role="document">
 				<div className="modal-content">
 					<div className="modal-header">
-						<h5 className="modal-title">EDITAR</h5>
+						<h5 className="modal-title">{data ? 'EDITAR EMPLEADO' : 'AGREGAR EMPLEADO'}</h5>
 						<button type="button" className="btn-close" data-bs-dismiss="modal" onClick={onClose} aria-label="Close">
 							<span aria-hidden="true"></span>
 						</button>
@@ -117,7 +122,7 @@ const Modal = ({ data, show, onClose, onEmployeeUpdate }) => {
 								</div>
 								<div className="row pb-0 mt-3 modal-footer">
 									<div className="col  d-flex align-content-end justify-content-end">
-										<button type="submit" className="btn btn-primary">EDITAR</button>
+										<button type="submit" className="btn btn-primary">{data ? 'EDITAR' : 'AGREGAR'}</button>
 									</div>
 								</div>
 							</form>
