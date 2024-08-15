@@ -1,0 +1,11 @@
+.left_banner {
+  background-color: black;
+}
+
+
+.full-height-col {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
