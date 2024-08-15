@@ -13,18 +13,21 @@ const Home = () => {
     fetchEmployees();
   }, [])
 
-return (
-  <>
-   <button type="button" className="btn btn-outline-primary" onClick={() => openModal()}>Agregar Empleado</button>
-    <TableEmployee data={employeeData} onEmployeeUpdate={fetchEmployees}/>
-    
-    <Modal
-      show={isOpen} 
-      onEmployeeUpdate={fetchEmployees}
-      onClose={() => closeModal()}
-    />
-  </>
-)
+  return (
+    <div className="row d-flex m-4">
+      <div className="col-sm-12 d-flex justify-content-end">
+        <button type="button" className="btn btn-primary my-2" onClick={() => openModal()}>Agregar Empleado</button>
+      </div>
+      <div className="col-sm-12">
+        <TableEmployee data={employeeData} onEmployeeUpdate={fetchEmployees}/>
+      </div>
+        <Modal
+          show={isOpen} 
+          onEmployeeUpdate={fetchEmployees}
+          onClose={() => closeModal()}
+        />
+    </div>
+  )
 }
 
 export default Home;
