@@ -4,7 +4,10 @@ import Modal from './Modal';
 import useModal from '../hooks/useModal';
 import useEmployee from '../hooks/useEmployee';
 
-const TableEmployee = ({data, onEmployeeUpdate}) => {
+const TableEmployee = ({
+  data, 
+  onEmployeeUpdate
+}) => {
   const [editingItem, setEditingItem] = useState(null);
   const { isOpen, openModal, closeModal } = useModal();
   const { removeEmployee } = useEmployee();
@@ -33,7 +36,7 @@ const TableEmployee = ({data, onEmployeeUpdate}) => {
           </tr>
         </thead>
         <tbody>
-          {data ? (
+          {Array.isArray(data) && data ? (
             data.map((item, index) => (
               <tr key={index}>
                 <td>{item.id}</td>

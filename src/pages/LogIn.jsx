@@ -1,27 +1,21 @@
 import React, {useState} from "react";
-import useAuthentication from "../hooks/useAuthentication";
-import "../styles/LogIn.css"
-import bannerImage from "../assets/coworking-people-illustration.png"
-
 import { Link } from 'react-router-dom';
+
+import useAuthentication from "../hooks/useAuthentication";
+import bannerImage from "../assets/coworking-people-illustration.png"
+import "../styles/LogIn.css"
+
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const {authenticate} = useAuthentication()
+  
+  const {authenticate, error} = useAuthentication()
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await authenticate(email, password);
-    if (response && response.status === 'success') {
-      console.log('User authenticated:', response.user);
-    } else {
-      setError(response.message || 'Invalid credentials');
-    }
+    await authenticate(email, password);
   };
-
 
   return (
     <form onSubmit={handleLogin}>
@@ -33,34 +27,32 @@ const LogIn = () => {
         <div className="col-sm-6 full-height-col">
           <div className="row mx-4">
             <div className="col-sm-12">
-              <label for="exampleInputEmail1" className="form-label mt-4">Email</label>
+              <label htmlFor="email-input" className="form-label mt-4">Email</label>
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="form-control" 
-                  id="exampleInputEmail1" 
-                  aria-describedby="emailHelp" 
+                  id="email-input" 
                   placeholder="Enter email" 
                 />
             </div>
             <div className="col-sm-12">
-              <label for="exampleInputPassword1" className="form-label mt-4">Contraseña</label>
+              <label htmlFor="password-input" className="form-label mt-4">Contraseña</label>
               <input 
                 type="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control" 
-                id="exampleInputPassword1" 
+                id="password-input" 
                 placeholder="Password" 
-                autocomplete="off" 
+                autoComplete="off" 
               />
-               {error && <small id="emailHelp" className="form-text text-muted">{error}</small>}
+               
             </div>
             <div className="col-sm-12">
               <button type="submit" className="btn btn-primary my-3 w-100">Iniciar Sesion</button>
-
-              <small id="emailHelp" className="form-text text-muted">¿No tienes cuenta? <Link to="/register">Regístrate</Link></small>
+              <small id="new-account" className="form-text text-muted">¿No tienes cuenta? <Link to="/register">Regístrate</Link></small>
             </div>
           </div>
         </div>
