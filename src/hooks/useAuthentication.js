@@ -10,6 +10,7 @@ const useAuthentication = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [authError, setAuthError] = useState(null);
   const navigate = useNavigate();
 
   const authenticate = useCallback(async (email, password) => {
@@ -17,11 +18,11 @@ const useAuthentication = () => {
     try {
       const response = await authenticateUser(email, password);
       if (response.status === "error") {
-        setError(response.message);
+        setAuthError(response.message);
         setData(null);
       } else {
         setData(response);
-        setError(null);
+        setAuthError(null);
         navigate('/home');
       }
     } catch (error) {
@@ -30,7 +31,7 @@ const useAuthentication = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   const editPassword = useCallback(async (id, newPassword) => {
     setLoading(true);
@@ -63,12 +64,13 @@ const useAuthentication = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   return { 
     data, 
     loading, 
     error,
+    authError,
     authenticate,
     editPassword,
     logOut

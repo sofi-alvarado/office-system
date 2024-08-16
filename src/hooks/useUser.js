@@ -47,7 +47,7 @@ const useUser = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   return { 
     data, 
