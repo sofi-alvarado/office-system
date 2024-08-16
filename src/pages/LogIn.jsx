@@ -5,7 +5,6 @@ import useAuthentication from "../hooks/useAuthentication";
 import bannerImage from "../assets/coworking-people-illustration.png"
 import "../styles/LogIn.css"
 
-
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
