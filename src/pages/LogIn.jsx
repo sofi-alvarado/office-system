@@ -33,7 +33,7 @@ const LogIn = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   className="form-control" 
                   id="email-input" 
-                  placeholder="Enter email" 
+                  placeholder="Ingrese email" 
                 />
             </div>
             <div className="col-sm-12">
@@ -44,7 +44,7 @@ const LogIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control" 
                 id="password-input" 
-                placeholder="Password" 
+                placeholder="Contraseña" 
                 autoComplete="off" 
               />
               {authError && <small id="warning" className="form-text text-danger">{authError}</small>}
