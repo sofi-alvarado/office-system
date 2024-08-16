@@ -9,7 +9,7 @@ const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const {authenticate} = useAuthentication()
+  const {authError, authenticate} = useAuthentication()
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const LogIn = () => {
       <div className="container-fluid">
       <div className="row">
         <div className="col-sm-6 left_banner full-height-col">
-          <img src={bannerImage}/>
+          <img alt="people in an office" src={bannerImage}/>
         </div>
         <div className="col-sm-6 full-height-col">
           <div className="row mx-4">
@@ -47,7 +47,7 @@ const LogIn = () => {
                 placeholder="Password" 
                 autoComplete="off" 
               />
-               
+              {authError && <small id="warning" className="form-text text-danger">{authError}</small>}
             </div>
             <div className="col-sm-12">
               <button type="submit" className="btn btn-primary my-3 w-100">Iniciar Sesion</button>

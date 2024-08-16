@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchEmployees();
-  }, [])
+  }, [fetchEmployees])
 
   return (
     <>

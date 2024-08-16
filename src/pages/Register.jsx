@@ -28,7 +28,7 @@ const Register = () => {
   return (
     <form onSubmit={handleLogin}>
       <div className="container">
-        <div className="row mx-5">
+        <div className="row mx-lg-5 mx-0">
           <div className="col-sm-12 full-height-col">
             <div className="row mx-4">
               <div className="col-sm-12">
